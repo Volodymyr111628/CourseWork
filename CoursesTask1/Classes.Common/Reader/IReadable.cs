@@ -1,13 +1,13 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Classes.Common
+namespace Classes.Common.Reader
 {
-    public class Class1
+    public interface IReader
     {
+        string Read();
     }
 }

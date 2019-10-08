@@ -20,12 +20,12 @@ namespace Classes.Common.Printer
 
         public void Print(object value)
         {
-            throw new NotImplementedException();
+            Console.Write(value);
         }
 
         public void Print(double value)
         {
-            throw new NotImplementedException();
+            Console.Write(value);
         }
     }
 }
