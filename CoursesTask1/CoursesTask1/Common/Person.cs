@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CoursesTask1
+﻿
+namespace CoursesTask1.Common
 {
-    struct Person
+    public struct Person
     {
         public int age;
         public string name;
         public string surname;
 
-        public Person(int _age, string _name, string _surname)
+        public Person(int age, string name, string surname)
         {
-            age = _age;
-            name = _name;
-            surname = _surname;
+            this.age = age;
+            this.name = name;
+            this.surname = surname;
         }
 
         public string ReturnString(int n)

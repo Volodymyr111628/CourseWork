@@ -20,6 +20,7 @@ namespace CoursesTask1
                 new Task4(),
                 new Task5()
             };
+
             foreach (var task in tasks)
             {
                 task.Run();

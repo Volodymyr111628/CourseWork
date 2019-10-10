@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Classes.Common.Printer;
 using Classes.Common.Runner;
+using CoursesTask1.Common;
 
 namespace CoursesTask1.Tasks
 {
     public class Task2 : IRunnable
     {
         private readonly IPrinter _printer;
-        
+
         public Task2()
         {
             _printer = new ConsolePrinter();

@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Classes.Common.Printer;
 using Classes.Common.Runner;
 using Classes.Common.Reader;
+using CoursesTask1.Common;
 
 namespace CoursesTask1.Tasks
 {
@@ -13,8 +10,6 @@ namespace CoursesTask1.Tasks
     {
         private readonly IPrinter _printer;
         private readonly IReader _reader;
-
-        enum Months { January, February, March, April, May, June, July, August, September, October, November, December };
 
         public Task3()
         {
@@ -27,18 +22,34 @@ namespace CoursesTask1.Tasks
             _printer.Print("\nTask3\n");
             _printer.Print("Input n:");
 
-            int n=-1;
-            Int32.TryParse(_reader.Read(),out n);
+            try
+            {
+                int monthNumber = Int32.Parse(_reader.Read());
 
-            if (n==-1||n < 0 || n >= 12)
-            {
-                _printer.Print("Invalid argument \n");
+                if (monthNumber < 0 || monthNumber >= 12)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                else
+                {
+                    _printer.Print(string.Format("Your month: {0}\n", Enum.GetName(typeof(Month), monthNumber)));
+                }
             }
-            else
+
+            catch (ArgumentNullException ex)
             {
-                _printer.Print(string.Format("Your month: {0}\n", Enum.GetName(typeof(Months), n)));
+                _printer.Print(string.Format("{0}\n", ex.Message));
+            }
+
+            catch (FormatException ex)
+            {
+                _printer.Print(string.Format("{0}\n", ex.Message));
+            }
+
+            catch (IndexOutOfRangeException ex)
+            {
+                _printer.Print(string.Format("{0}\n", ex.Message));
             }
         }
     }
-
 }
