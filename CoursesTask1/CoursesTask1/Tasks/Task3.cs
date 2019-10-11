@@ -28,7 +28,7 @@ namespace CoursesTask1.Tasks
 
                 if (monthNumber < 0 || monthNumber >= 12)
                 {
-                    throw new IndexOutOfRangeException();
+                    throw new ArgumentOutOfRangeException();
                 }
                 else
                 {
@@ -46,7 +46,7 @@ namespace CoursesTask1.Tasks
                 _printer.Print(string.Format("{0}\n", ex.Message));
             }
 
-            catch (IndexOutOfRangeException ex)
+            catch (ArgumentOutOfRangeException ex)
             {
                 _printer.Print(string.Format("{0}\n", ex.Message));
             }
