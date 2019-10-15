@@ -13,20 +13,21 @@ namespace CoursesTask3.Common
     {
         private static readonly IPrinter _printer = new ConsolePrinter();
 
-
-        public static void VisualizeDirectory(String path, DirectoryInfo parent = null, String space = null)
+        public static void VisualizeDirectory(string path, int level = 0)
         {
-            DirectoryInfo directoryInfo = new DirectoryInfo(path);
+            DirectoryInfo info = new DirectoryInfo(path);
+            var indent = new string('\t', level);
 
-            foreach (var item in directoryInfo.GetDirectories())
+            _printer.Print(string.Format($"{indent + "+" + info.Name}\n"));
+
+            foreach (var item in info.GetDirectories())
             {
-                Console.WriteLine($"\t{space}+{item.Name}");
-                VisualizeDirectory(item.FullName, item.Parent, "\t");
+                VisualizeDirectory(item.FullName, level + 1);
                 foreach (var file in item.GetFiles())
                 {
-                    Console.WriteLine($"\t\t└{file.Name}");
+                    indent = new string('\t', level + 2);
+                    _printer.Print(string.Format($"{indent + "└" + file.Name}\n"));
                 }
-                Console.WriteLine();
             }
         }
     }

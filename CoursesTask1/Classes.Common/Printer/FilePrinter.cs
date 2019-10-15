@@ -55,7 +55,7 @@ namespace Classes.Common.Printer
                 {
                     File.Create(Path);
                 }
-                sw.Write(string.Format("{0}\n", value));
+                sw.WriteLine(string.Format("\n{0}\n", value));
             }
             catch (IOException ex)
             {
@@ -82,7 +82,7 @@ namespace Classes.Common.Printer
                 {
                     File.Create(Path);
                 }
-                sw.Write(string.Format("{0}\n", value));
+                sw.WriteLine(string.Format("{0} \n", value));
             }
             catch (IOException ex)
             {
@@ -90,7 +90,7 @@ namespace Classes.Common.Printer
             }
             catch (Exception ex)
             {
-                _printer.Print(string.Format("Exception occured:{0}\n", ex.Message));
+                _printer.Print(string.Format("Exception occured:{0} \n", ex.Message));
                 throw;
             }
             finally

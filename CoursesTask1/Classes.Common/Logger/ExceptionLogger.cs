@@ -12,10 +12,10 @@ namespace Classes.Common.Logger
     {
         private readonly IPrinter _filePrinter;
         private readonly IPrinter _printer;
-        
+
         public ExceptionLogger()
         {
-            _filePrinter = new FilePrinter();
+            _filePrinter = new FilePrinter("Exception.txt");
             _printer = new ConsolePrinter();
         }
 
@@ -29,13 +29,13 @@ namespace Classes.Common.Logger
         {
             try
             {
-                _filePrinter.Print(string.Format("{0}\n",((Exception)value).ToString()));
+                _filePrinter.Print(string.Format("{0}\n", ((Exception)value).ToString()));
             }
-            catch(IOException ex)
+            catch (IOException ex)
             {
-                _printer.Print(string.Format("Exception occured: {0}\n",ex.Message));
+                _printer.Print(string.Format("Exception occured: {0}\n", ex.Message));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _printer.Print(string.Format("Exception occured: {0}\n", ex.Message));
                 throw;
