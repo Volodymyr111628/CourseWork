@@ -7,6 +7,7 @@ using System.IO;
 using Classes.Common.Logger;
 using Classes.Common.Printer;
 using Classes.Common.Runner;
+using CoursesTask3.Common;
 
 namespace CoursesTask3.Tasks
 {
@@ -18,12 +19,29 @@ namespace CoursesTask3.Tasks
         public Task2()
         {
             _printer = new ConsolePrinter();
-            _logger = new ExceptionLogger();
+            _logger = new ExceptionLogger(new FilePrinter("Exceptions.txt"), "INFO");
         }
 
         public void Run()
         {
+            _printer.Print("\n---------------TASK2-----------------\n");
+            string path = @"C:\Users\vova1\Videos\Desktop\glew";
+            string fileName = "LI";
 
+            try
+            {
+                FileSearcher.FindTxtFileByPartialName(path, fileName);
+            }
+            catch (IOException ex)
+            {
+                _logger.WriteMessage(ex.Message);
+                _printer.Print(string.Format($"{ex.Message}\n"));
+            }
+            catch (Exception ex)
+            {
+                _logger.WriteMessage(ex.Message);
+                _printer.Print(string.Format($"{ex.Message}\n"));
+            }
         }
     }
 }

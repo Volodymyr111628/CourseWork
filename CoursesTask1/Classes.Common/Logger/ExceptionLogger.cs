@@ -10,34 +10,46 @@ namespace Classes.Common.Logger
 {
     public class ExceptionLogger : ILogger
     {
-        private readonly IPrinter _filePrinter;
-        private readonly IPrinter _printer;
+        public IPrinter Src { get; set; }
+        public string LevelOfDetalization { get; set; }
 
         public ExceptionLogger()
         {
-            _filePrinter = new FilePrinter("Exception.txt");
-            _printer = new ConsolePrinter();
+            Src = new ConsolePrinter();
         }
 
-        public ExceptionLogger(string path)
+        public ExceptionLogger(IPrinter src, string levelOfDetalization)
         {
-            _filePrinter = new FilePrinter(path);
-            _printer = new ConsolePrinter();
+            Src = src;
+            LevelOfDetalization = levelOfDetalization;
         }
 
-        public void Log(object value)
+        public string ReadMessage()
+        {
+            if (Src is ConsolePrinter)
+            {
+                throw new NotImplementedException();
+            }
+            else
+            {
+                StreamReader sr = new StreamReader(((FilePrinter)Src).Path);
+                string text = sr.ReadToEnd();
+                return text;
+            }
+        }
+
+        public void WriteMessage(object value)
         {
             try
             {
-                _filePrinter.Print(string.Format("{0}\n", ((Exception)value).ToString()));
+                Src.Print(string.Format("{0}\n", value.ToString()));
             }
-            catch (IOException ex)
+            catch (IOException)
             {
-                _printer.Print(string.Format("Exception occured: {0}\n", ex.Message));
+                throw;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                _printer.Print(string.Format("Exception occured: {0}\n", ex.Message));
                 throw;
             }
         }

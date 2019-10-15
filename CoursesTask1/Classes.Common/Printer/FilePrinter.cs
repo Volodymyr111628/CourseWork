@@ -8,7 +8,7 @@ using Classes.Common.Logger;
 
 namespace Classes.Common.Printer
 {
-    class FilePrinter : IPrinter
+    public class FilePrinter : IPrinter
     {
         public string Path { get; set; }
         private readonly IPrinter _printer;

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using CoursesTask3.Tasks;
 using Classes.Common.Runner;
+using Classes.Common.Logger;
+using Classes.Common.Printer;
 
 namespace CoursesTask3
 {
@@ -12,13 +14,22 @@ namespace CoursesTask3
     {
         static void Main(string[] args)
         {
+            ILogger _logger = new ExceptionLogger();
             List<IRunnable> tasks = new List<IRunnable>()
             {
-                new Task1()
+                new Task1(),
+                new Task2()
             };
-            foreach (var task in tasks)
+            try
             {
-                task.Run();
+                foreach (var task in tasks)
+                {
+                    task.Run();
+                }
+            }
+            catch(Exception ex)
+            {
+
             }
         }
     }

@@ -17,12 +17,27 @@ namespace CoursesTask3.Common
         static FileSearcher()
         {
             _printer = new ConsolePrinter();
-            _logger = new ExceptionLogger("Exception.txt");
+            _logger = new ExceptionLogger(new ConsolePrinter(),"INFO");
         }
 
-        public static void FindTxtFileByPartialName(string path,string fileName)
+        public static void FindTxtFileByPartialName(string path, string fileName)
         {
+            DirectoryInfo info = new DirectoryInfo(path);
 
+            var files = info.GetFiles();
+
+            foreach (var file in files)
+            {
+                if (Path.GetExtension(file.FullName) == ".txt" && file.Name.Contains(fileName))
+                {
+                    _printer.Print(string.Format($"{file.FullName} \n"));
+                }
+            }
+            foreach (var item in info.GetDirectories())
+            {
+                FindTxtFileByPartialName(item.FullName, fileName);
+            }
         }
+
     }
 }

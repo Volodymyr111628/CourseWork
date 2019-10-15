@@ -8,6 +8,7 @@ namespace Classes.Common.Logger
 {
     public interface ILogger
     {
-        void Log(object value);
+        void WriteMessage(object value);
+        string ReadMessage();
     }
 }

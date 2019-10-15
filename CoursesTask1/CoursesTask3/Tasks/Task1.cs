@@ -19,27 +19,27 @@ namespace CoursesTask3.Tasks
         public Task1()
         {
             _printer = new ConsolePrinter();
-            _logger = new ExceptionLogger();
+            _logger = new ExceptionLogger(new FilePrinter("Exception.txt"),"INFO");
         }
 
         public void Run()
         {
-            string path = "C:\\Users\\vova1\\Video\\Desktop\\Course\\CourseWork\\CoursesTask1\\CoursesWork2";
+            _printer.Print("TASK1\n");
+
+            string path = "C:\\Users\\vova1\\Videos\\Desktop\\Course\\CourseWork\\CoursesTask1\\CoursesWork2";
             try
             {
-                int k = 0;
-                int c = 0 / k;
                 DirectoryVisualizer.VisualizeDirectory(path);
             }
             catch(IOException ex)
             {
-                _printer.Print(string.Format(($"{ex.Message}\n")));
-                _logger.Log(ex);
+                _printer.Print(string.Format(($"{ex.ToString()}\n")));
+                _logger.WriteMessage(ex.ToString());
             }
             catch (Exception ex)
             {
-                _printer.Print(string.Format(($"{ex.Message}\n")));
-                _logger.Log(ex);
+                _printer.Print(string.Format(($"{ex.ToString()}\n")));
+                _logger.WriteMessage(ex.Message);
             }
         }
     }
