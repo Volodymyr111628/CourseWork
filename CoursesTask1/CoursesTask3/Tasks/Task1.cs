@@ -21,8 +21,8 @@ namespace CoursesTask3.Tasks
 
         public void Run()
         {
-            string directoryName = "C:\\Users\\vova1\\Videos\\Desktop\\Selfimprovement";
-            Functions.GetDirectories(directoryName);
+            string path = "C:\\Users\\Hp\\Desktop\\СШІ";
+            DirectoryVisualizer.VisualizeDirectory(path);
         }
     }
 }

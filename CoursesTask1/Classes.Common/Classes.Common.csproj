@@ -42,7 +42,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
+    <Compile Include="Logger\ExceptionLogger.cs" />
+    <Compile Include="Logger\ILogger.cs" />
     <Compile Include="Printer\ConsolePrinter.cs" />
+    <Compile Include="Printer\FilePrinter.cs" />
     <Compile Include="Printer\IPrinter.cs" />
     <Compile Include="Reader\ConsoleReader.cs" />
     <Compile Include="Reader\IReadable.cs" />
