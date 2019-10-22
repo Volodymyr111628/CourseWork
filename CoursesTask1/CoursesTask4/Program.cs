@@ -15,7 +15,9 @@ namespace CoursesTask4
         {
             List<IRunnable> tasks = new List<IRunnable>
             {
-                new Task1()
+                new Task1(),
+                new Task2(),
+                new Task3()
             };
 
             foreach (var task in tasks)

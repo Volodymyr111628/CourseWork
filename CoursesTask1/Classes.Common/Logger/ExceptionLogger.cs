@@ -15,7 +15,7 @@ namespace Classes.Common.Logger
 
         public ExceptionLogger()
         {
-            Src = new ConsolePrinter();
+            LevelOfDetalization = ""; 
         }
 
         public ExceptionLogger(IPrinter src, string levelOfDetalization)

@@ -51,6 +51,8 @@
     <Compile Include="Reader\IReadable.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Runner\IRunnable.cs" />
+    <Compile Include="Serializer\ISerializable.cs" />
+    <Compile Include="Serializer\XmlSerializer.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

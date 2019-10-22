@@ -12,6 +12,8 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
+using Classes.Common.Serializer;
+using System.Configuration;
 
 namespace CoursesTask4.Tasks
 {
@@ -24,12 +26,15 @@ namespace CoursesTask4.Tasks
         public Task1()
         {
             _printer = new ConsolePrinter();
-            _logger = new ExceptionLogger(new FilePrinter("Exceptions.txt"), "Thread");
+            _logger = new ExceptionLogger(new FilePrinter(ConfigurationManager.AppSettings["FileToWrite"].ToString()),
+                ConfigurationManager.AppSettings["levelOfDetalization"].ToString());
             _filePrinter = new FilePrinter();
         }
 
         public void Run()
         {
+            _printer.Print("-----TASK1-----\n");
+
             List<Car> cars = new List<Car>
             {
                 new Car(10,100550,512,2230),
@@ -42,49 +47,54 @@ namespace CoursesTask4.Tasks
 
             BinaryFormatter formatter = new BinaryFormatter();
 
-            using (FileStream fs = new FileStream("Cars.dat", FileMode.OpenOrCreate))
+            FileStream fs = new FileStream("Cars.dat", FileMode.OpenOrCreate);
+            try
             {
                 formatter.Serialize(fs, cars);
             }
-
-            using (FileStream fs = new FileStream("Cars.dat", FileMode.Open))
+            catch (IOException ex)
             {
+                _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
+                _logger.WriteMessage(ex.ToString());
+            }
+            finally
+            {
+                fs.Close();
+            }
+
+            fs = new FileStream("Cars.dat", FileMode.Open);
+
+            try
+            {
+
                 List<Car> carsDeseralizedBinary = (List<Car>)formatter.Deserialize(fs);
 
                 foreach (var car in carsDeseralizedBinary)
                 {
                     _printer.Print(car.ReturnString());
                 }
+
             }
-
-            XmlSerializer xmlFormatter = new XmlSerializer(typeof(List<Car>));
-
-            using (FileStream fs = new FileStream("Cars.xml", FileMode.OpenOrCreate))
+            catch (FileNotFoundException ex)
             {
-                xmlFormatter.Serialize(fs, cars);
+                _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
+                _logger.WriteMessage(ex.ToString());
             }
-
-            using (FileStream fs = new FileStream("Cars.xml", FileMode.Open))
+            catch (IOException ex)
             {
-                List<Car> carsDeserializedXml = (List<Car>)xmlFormatter.Deserialize(fs);
-
-                foreach (var car in carsDeserializedXml)
-                {
-                    _printer.Print(car.ReturnString());
-                }
+                _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
+                _logger.WriteMessage(ex.ToString());
             }
-
-            var jsonCars = JsonConvert.SerializeObject(cars);
-            ((FilePrinter)_filePrinter).Path = "Cars.json";
-            _filePrinter.RePrint(jsonCars);
-
-            List<Car> carsDeserializedJson = JsonConvert.DeserializeObject<List<Car>>(File.ReadAllText("Cars.json"));
-
-            foreach (var car in carsDeserializedJson)
+            catch (Exception ex)
             {
-                _printer.Print(car.ReturnString());
+                _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
+                _logger.WriteMessage(ex.ToString());
             }
-            
+            finally
+            {
+                fs.Close();
+            }
         }
     }
 }
+
