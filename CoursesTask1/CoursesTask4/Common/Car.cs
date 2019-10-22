@@ -3,16 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace CoursesTask4.Common
 {
     [Serializable]
+    [DataContract]
     public class Car
     {
-        public int carId;
-        public decimal price;
-        public int quantity;
-        public decimal total;
+        [DataMember]
+        public int carId { get; set; }
+        [DataMember]
+        public decimal price { get; set; }
+        [DataMember]
+        public int quantity { get; set; }
+        [DataMember]
+        public decimal total { get; set; }
 
         public Car() { }
 

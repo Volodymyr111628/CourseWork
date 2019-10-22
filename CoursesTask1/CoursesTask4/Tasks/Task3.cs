@@ -13,7 +13,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
 using Classes.Common.Serializer;
-
+using System.Configuration;
 
 namespace CoursesTask4.Tasks
 {
@@ -26,7 +26,8 @@ namespace CoursesTask4.Tasks
         public Task3()
         {
             _printer = new ConsolePrinter();
-            _logger = new ExceptionLogger(new FilePrinter("Exceptions.txt"), "Thread");
+            _logger = new ExceptionLogger(new FilePrinter(ConfigurationManager.AppSettings["FileToWrite"].ToString())
+                , ConfigurationManager.AppSettings["LevelOfDetalization"].ToString());
             _filePrinter = new FilePrinter();
         }
 
@@ -44,15 +45,23 @@ namespace CoursesTask4.Tasks
                 new Car(15,20344,90,2023)
             };
 
-            var jsonCars = JsonConvert.SerializeObject(cars);
-            ((FilePrinter)_filePrinter).Path = "Cars.json";
-            _filePrinter.RePrint(jsonCars);
-
-            List<Car> carsDeserializedJson = JsonConvert.DeserializeObject<List<Car>>(File.ReadAllText("Cars.json"));
-
-            foreach (var car in carsDeserializedJson)
+            try
             {
-                _printer.Print(car.ReturnString());
+                var jsonCars = JsonConvert.SerializeObject(cars);
+                _filePrinter.Path = "Cars.json";
+                _filePrinter.RePrint(jsonCars);
+
+                List<Car> carsDeserializedJson = JsonConvert.DeserializeObject<List<Car>>(File.ReadAllText("Cars.json"));
+
+                foreach (var car in carsDeserializedJson)
+                {
+                    _printer.Print(car.ReturnString());
+                }
+            }
+            catch(IOException ex)
+            {
+                _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
+                _logger.WriteMessage(ex.ToString());
             }
         }
     }

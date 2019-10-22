@@ -34,7 +34,6 @@ namespace CoursesTask4.Tasks
         public void Run()
         {
             _printer.Print("-----TASK1-----\n");
-
             List<Car> cars = new List<Car>
             {
                 new Car(10,100550,512,2230),
@@ -97,4 +96,3 @@ namespace CoursesTask4.Tasks
         }
     }
 }
-
