@@ -11,7 +11,7 @@ namespace CoursesTask5
     {
         static void Main(string[] args)
         {
-            var assembly = Assembly.Load(@"Classes.Common");
+            var assembly = Assembly.Load("Classes.Common");
 
             Console.WriteLine(assembly.FullName);
 

@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Classes.Common.Serializer
 {
-    public interface ISerializable<T>
+    public class JsonSerializer
     {
-        void Serialize();
-        T Deserialize();
     }
 }

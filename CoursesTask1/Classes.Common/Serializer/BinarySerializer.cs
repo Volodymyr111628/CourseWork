@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Classes.Common.Serializer
 {
-    public interface ISerializable<T>
+    class BinarySerializer
     {
-        void Serialize();
-        T Deserialize();
     }
 }

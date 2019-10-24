@@ -33,7 +33,7 @@ namespace CoursesTask4.Tasks
         public void Run()
         {
             _printer.Print("\n-----TASK2-----\n");
-            
+
             List<Car> cars = new List<Car>
             {
                 new Car(10,100550,512,2230),
@@ -44,19 +44,41 @@ namespace CoursesTask4.Tasks
                 new Car(15,20344,90,2023)
             };
 
-            XmlSerializer<List<Car>> xmlSerializer = new XmlSerializer<List<Car>>("Cars.xml",cars);
-            xmlSerializer.Serialize();
-
-            XmlSerializer xmlFormatter = new XmlSerializer(typeof(List<Car>));
-
-            using (FileStream fs = new FileStream("Cars.xml", FileMode.Open))
+            try
             {
-                List<Car> carsDeserializedXml = (List<Car>)xmlFormatter.Deserialize(fs);
+                XmlSerializer<List<Car>> xmlSerializer = new XmlSerializer<List<Car>>("Cars.xml", cars);
+                xmlSerializer.Serialize();
+            }
+            catch (IOException ex)
+            {
+                _printer.Print(string.Format($"Exception occured {ex.Message}"));
+                _logger.WriteMessage(ex.ToString());
+            }
+            catch (Exception ex)
+            {
+                _printer.Print(string.Format($"Exception occured {ex.Message}"));
+                throw;
+            }
 
-                foreach (var car in carsDeserializedXml)
+            try
+            {
+                XmlSerializer<List<Car>> xmlSerializer = new XmlSerializer<List<Car>>("Cars.xml");
+                var deserializedCars = xmlSerializer.Deserialize();
+
+                foreach (var car in deserializedCars)
                 {
                     _printer.Print(car.ReturnString());
                 }
+            }
+            catch (IOException ex)
+            {
+                _printer.Print(string.Format($"Exception occured {ex.Message}"));
+                _logger.WriteMessage(ex.ToString());
+            }
+            catch (Exception ex)
+            {
+                _printer.Print(string.Format($"Exception occured {ex.Message}"));
+                throw;
             }
         }
     }
