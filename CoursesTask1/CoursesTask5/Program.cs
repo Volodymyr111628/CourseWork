@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Reflection;
+﻿using System.Collections.Generic;
+using Classes.Common.Runner;
+using CoursesTask5.Tasks;
 
 namespace CoursesTask5
 {
@@ -11,31 +8,14 @@ namespace CoursesTask5
     {
         static void Main(string[] args)
         {
-            var assembly = Assembly.Load("Classes.Common");
-
-            Console.WriteLine(assembly.FullName);
-
-            foreach (var item in assembly.GetModules(true))
+            List<IRunnable> tasks = new List<IRunnable>()
             {
-                Console.WriteLine(item.Name);
-            }
+                new Task1()
+            };
 
-            foreach (var type in assembly.GetExportedTypes())
+            foreach (var task in tasks)
             {
-                Console.WriteLine(type.Name);
-
-                foreach (var member in type.GetMembers())
-                {
-                    Console.WriteLine("\t {0}",member);
-
-                    if (member.MemberType == MemberTypes.Method)
-                    {
-                        foreach (ParameterInfo parInfo in ((MethodInfo)member).GetParameters())
-                        {
-                            Console.WriteLine("\t\t {0}",parInfo);
-                        }
-                    }
-                }
+                task.Run();
             }
         }
     }

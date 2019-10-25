@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Classes.Common.Runner;
 using Classes.Common.Printer;
 using Classes.Common.Logger;
 using CoursesTask4.Common;
 using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml.Serialization;
 using Newtonsoft.Json;
-using Classes.Common.Serializer;
 using System.Configuration;
 
 namespace CoursesTask4.Tasks
