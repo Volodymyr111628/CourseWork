@@ -4,12 +4,14 @@ using Classes.Common.Runner;
 using Classes.Common.Printer;
 using System.Configuration;
 using CoursesTask5.Common;
+using NLog;
 
 namespace CoursesTask5.Tasks
 {
     public class Task1 : IRunnable
     {
-        private readonly ILogger _exceptionLogger;
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private readonly Classes.Common.Logger.ILogger _exceptionLogger;
         private readonly IPrinter _consolePrinter;
 
         public Task1()
@@ -21,7 +23,7 @@ namespace CoursesTask5.Tasks
 
         public void Run()
         {
-            string assemblyName = "Classes.Common";
+            string assemblyName = "Classes.Commonn";
 
             AssemblyInfoVisualizer visualizeAssebly = new AssemblyInfoVisualizer(assemblyName);
             try
@@ -32,11 +34,13 @@ namespace CoursesTask5.Tasks
             {
                 _consolePrinter.Print(string.Format($"Exception occured {ex.Message} \n"));
                 _exceptionLogger.WriteMessage(ex.ToString());
+                logger.Error(ex);
             }
             catch (Exception ex)
             {
                 _consolePrinter.Print(string.Format($"Exception occured {ex.Message} \n"));
                 _exceptionLogger.WriteMessage(ex.ToString());
+                logger.Error(ex);
             }
         }
     }
