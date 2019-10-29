@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Classes.Common.Runner;
-using CoursesTask6.Tasks;
+using CoursesTask7.Tasks;
 
 namespace CoursesTask5
 {
@@ -11,7 +11,6 @@ namespace CoursesTask5
             List<IRunnable> tasks = new List<IRunnable>()
             {
                 new Task1(),
-                new Task2()
             };
 
             foreach (var task in tasks)

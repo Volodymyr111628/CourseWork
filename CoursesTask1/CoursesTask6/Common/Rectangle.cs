@@ -1,81 +1,83 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Classes.Common.Printer;
 
 namespace CoursesTask6.Common
 {
-    public class Rectangle
+    public class Rectangle : IShape<Rectangle>
     {
+
+        private readonly IPrinter _printer = new ConsolePrinter();
 
         public Rectangle() { }
 
-        public Rectangle(Point bottomLeftPoint, Point topLeftPoint, Point topRightPoint, Point bottomRightPoint)
+        public Rectangle(Point bottomLeftPoint, Point topRightPoint)
         {
             BottomLeftPoint = bottomLeftPoint;
-            TopLeftPoint = topLeftPoint;
             TopRightPoint = topRightPoint;
-            BottomRightPoint = bottomRightPoint;
-
-            Width = BottomLeftPoint.X - BottomRightPoint.X;
-            Height = BottomLeftPoint.Y - TopLeftPoint.Y;
         }
 
         public Point BottomLeftPoint { get; set; }
 
-        public Point TopLeftPoint { get; set; }
-
         public Point TopRightPoint { get; set; }
 
-        public Point BottomRightPoint { get; set; }
+        public static bool operator ==(Rectangle a, Rectangle b)
+        {
+            return a.BottomLeftPoint == b.BottomLeftPoint && a.TopRightPoint == b.TopRightPoint;
+        }
 
-        public double Width { get; set; }
+        public static bool operator !=(Rectangle a, Rectangle b)
+        {
+            return a.BottomLeftPoint != b.BottomLeftPoint || a.TopRightPoint != b.TopRightPoint;
+        }
 
-        public double Height { get; set; }
-
-        public void MoveRectangle(double x, double y)
+        public void Move(double x, double y)
         {
             BottomLeftPoint = new Point(BottomLeftPoint.X + x, BottomLeftPoint.Y + y);
-            TopLeftPoint = new Point(TopLeftPoint.X + x, TopLeftPoint.Y + y);
             TopRightPoint = new Point(TopRightPoint.X + x, TopRightPoint.Y + y);
-            BottomRightPoint = new Point(BottomRightPoint.X + x, BottomRightPoint.Y + y);
         }
 
-        public void ChangeSize(int coefficient)
+        public void ChangeSize(double coefficient)
         {
-            Width *= coefficient;
-            Height *= coefficient;
+            double width = (TopRightPoint.X - BottomLeftPoint.X) * coefficient;
+            double height = (TopRightPoint.Y - BottomLeftPoint.Y) * coefficient;
 
-            TopLeftPoint = new Point(BottomLeftPoint.X, BottomLeftPoint.Y + Height);
-            BottomRightPoint = new Point(BottomRightPoint.X + Width, BottomRightPoint.Y);
-            TopRightPoint = new Point(BottomLeftPoint.X + Width, BottomLeftPoint.Y + Height);
+            TopRightPoint = new Point(BottomLeftPoint.X + width, BottomLeftPoint.Y + height);
         }
 
-        public Rectangle BuildRectangleIncludesTwo(Rectangle firstRectangle,Rectangle secondReactangle)
+        public Rectangle GetShapeContainsTwo(Rectangle firstRectangle, Rectangle secondReactangle)
         {
             BottomLeftPoint = new Point(Math.Min(firstRectangle.BottomLeftPoint.X, secondReactangle.BottomLeftPoint.X),
                 Math.Min(firstRectangle.BottomLeftPoint.Y, secondReactangle.BottomLeftPoint.Y));
 
-            TopRightPoint= new Point(Math.Max(firstRectangle.TopRightPoint.X, secondReactangle.TopRightPoint.X),
+            TopRightPoint = new Point(Math.Max(firstRectangle.TopRightPoint.X, secondReactangle.TopRightPoint.X),
                 Math.Max(firstRectangle.TopRightPoint.Y, secondReactangle.TopRightPoint.Y));
 
-            TopLeftPoint = new Point(BottomLeftPoint.X, TopRightPoint.Y);
-
-            BottomRightPoint = new Point(BottomLeftPoint.Y, TopRightPoint.X);
-
-            Width = BottomLeftPoint.X - BottomRightPoint.X;
-            Height = BottomLeftPoint.Y - TopLeftPoint.Y;
-
             return this;
         }
 
-        public Rectangle BuildRectangleIntersectionOfTwo(Rectangle firstRectangle,Rectangle secondReactangle)
+        public Rectangle GetShapesIntersection(Rectangle firstRectangle, Rectangle secondReactangle)
         {
-            
+            BottomLeftPoint = new Point(Math.Max(firstRectangle.BottomLeftPoint.X, secondReactangle.BottomLeftPoint.X),
+                Math.Max(firstRectangle.BottomLeftPoint.Y, secondReactangle.BottomLeftPoint.Y));
 
-            return this;
+            TopRightPoint = new Point(Math.Min(firstRectangle.TopRightPoint.X, secondReactangle.TopRightPoint.X),
+                Math.Min(firstRectangle.TopRightPoint.Y, secondReactangle.TopRightPoint.Y));
+
+            if (BottomLeftPoint.X - TopRightPoint.X >= 0 || BottomLeftPoint.Y - TopRightPoint.Y >= 0)
+            {
+                _printer.Print("Rectangles dont intersect \n");
+                return null;
+            }
+            else
+            {
+                return this;
+            }
         }
 
+        public void Draw()
+        {
+            _printer.Print(string.Format($"Bottom left point coordinates: ({BottomLeftPoint.X},{BottomLeftPoint.Y}) "
+                + $"Top right point coordinates: ({TopRightPoint.X},{TopRightPoint.Y}) \n"));
+        }
     }
 }
