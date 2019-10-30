@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Classes.Common.Runner;
-using CoursesTask7.Tasks;
+using CoursesTask8.Tasks;
 
 namespace CoursesTask5
 {

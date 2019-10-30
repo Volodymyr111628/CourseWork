@@ -19,20 +19,7 @@ namespace Classes.Common.Logger
             Src = src;
             LevelOfDetalization = levelOfDetalization;
         }
-
-        public string ReadMessage()
-        {
-            if (Src is ConsolePrinter)
-            {
-                throw new NotImplementedException();
-            }
-            else
-            {
-                StreamReader sr = new StreamReader(((FilePrinter)Src).Path);
-                string text = sr.ReadToEnd();
-                return text;
-            }
-        }
+        
 
         public void WriteMessage(object value)
         {

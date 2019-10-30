@@ -3,6 +3,5 @@
     public interface ILogger
     {
         void WriteMessage(object value);
-        string ReadMessage();
     }
 }

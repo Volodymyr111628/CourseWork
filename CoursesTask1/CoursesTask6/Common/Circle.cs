@@ -3,15 +3,18 @@
     using System;
     using Classes.Common.Printer;
 
-    class Circle : IShape<Circle>
+    public class Circle : IShape<Circle>
     {
         private readonly IPrinter _printer = new ConsolePrinter();
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Circle"/> class.
+        /// </summary>
+        public Circle() { }
 
         public Point CenterPoint { get; set; }
 
         public double Radius { get; set; }
-
-        public Circle() { }
 
         public Circle(Point centerPoint, double radius)
         {
