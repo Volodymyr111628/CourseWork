@@ -13,14 +13,12 @@ namespace CoursesTask4.Tasks
     public class Task2 : IRunnable
     {
         private readonly IPrinter _printer;
-        private readonly ILogger _logger;
-        private readonly FilePrinter _filePrinter;
+        private readonly ILogger<Task2> _logger;
 
-        public Task2()
+        public Task2(ILogger<Task2> logger,IPrinter printer)
         {
-            _printer = new ConsolePrinter();
-            _logger = new ExceptionLogger(new FilePrinter("Exceptions.txt"), "Thread");
-            _filePrinter = new FilePrinter();
+            _printer = printer;
+            _logger = logger;
         }
 
         public void Run()
@@ -45,7 +43,7 @@ namespace CoursesTask4.Tasks
             catch (IOException ex)
             {
                 _printer.Print(string.Format($"Exception occured {ex.Message}"));
-                _logger.WriteMessage(ex.ToString());
+                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
             }
             catch (Exception ex)
             {
@@ -66,7 +64,7 @@ namespace CoursesTask4.Tasks
             catch (IOException ex)
             {
                 _printer.Print(string.Format($"Exception occured {ex.Message}"));
-                _logger.WriteMessage(ex.ToString());
+                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
             }
             catch (Exception ex)
             {

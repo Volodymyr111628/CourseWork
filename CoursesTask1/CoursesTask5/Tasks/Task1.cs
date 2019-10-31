@@ -4,43 +4,37 @@ using Classes.Common.Runner;
 using Classes.Common.Printer;
 using System.Configuration;
 using CoursesTask5.Common;
-using NLog;
 
 namespace CoursesTask5.Tasks
 {
     public class Task1 : IRunnable
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();
-        private readonly Classes.Common.Logger.ILogger _exceptionLogger;
-        private readonly IPrinter _consolePrinter;
+        private readonly ILogger<Task1> _logger;
+        private readonly IPrinter _printer;
+        private AssemblyInfoVisualizer visualizer;
 
-        public Task1()
+        public Task1(IPrinter printer, ILogger<Task1> logger, AssemblyInfoVisualizer visualizer)
         {
-            _consolePrinter = new ConsolePrinter();
-            _exceptionLogger = new ExceptionLogger(new FilePrinter(ConfigurationManager.AppSettings["FileToWrite"].ToString()),
-                ConfigurationManager.AppSettings["LevelOfDetalization"].ToString());
+            _printer = printer;
+            _logger = logger;
+            this.visualizer = visualizer;
         }
 
         public void Run()
         {
-            string assemblyName = "Classes.Commonn";
-
-            AssemblyInfoVisualizer visualizeAssebly = new AssemblyInfoVisualizer(assemblyName);
             try
             {
-                visualizeAssebly.VisualizeAssemblyInfo();
+                visualizer.VisualizeAssemblyInfo();
             }
             catch (ArgumentException ex)
             {
-                _consolePrinter.Print(string.Format($"Exception occured {ex.Message} \n"));
-                _exceptionLogger.WriteMessage(ex.ToString());
-                logger.Error(ex);
+                _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
+                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
             }
             catch (Exception ex)
             {
-                _consolePrinter.Print(string.Format($"Exception occured {ex.Message} \n"));
-                _exceptionLogger.WriteMessage(ex.ToString());
-                logger.Error(ex);
+                _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
+                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
             }
         }
     }

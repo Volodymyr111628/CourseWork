@@ -7,10 +7,14 @@ namespace CoursesTask8.Common
 {
     public class ConsoleCalc : ICalc
     {
-        private static readonly IPrinter _printer = new ConsolePrinter();
-        private readonly ILogger _logger = new ExceptionLogger(
-            new FilePrinter(ConfigurationManager.AppSettings["FileToWrite"].ToString()),
-            ConfigurationManager.AppSettings["LevelOfDetalization"].ToString());
+        private readonly IPrinter _printer;
+        private readonly ILogger<ConsoleCalc> _logger;
+
+        public ConsoleCalc(IPrinter printer, ILogger<ConsoleCalc> logger)
+        {
+            _printer = printer;
+            _logger = logger;
+        }
 
         public void Calculation(double a, double b, char operation)
         {
@@ -49,7 +53,7 @@ namespace CoursesTask8.Common
             catch(DivideByZeroException ex)
             {
                 _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
-                _logger.WriteMessage(ex.ToString());
+                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
             }
             catch(Exception ex)
             {

@@ -2,24 +2,9 @@
 
 namespace Classes.Common.Printer
 {
-    public class ConsolePrinter : IPrinter
+    public class ConsolePrinter : IPrinter,ILogPrinter
     {
         public void Print(string value)
-        {
-            Console.Write(value);
-        }
-
-        public void Print(int value)
-        {
-            Console.Write(value);
-        }
-
-        public void Print(object value)
-        {
-            Console.Write(value);
-        }
-
-        public void Print(double value)
         {
             Console.Write(value);
         }

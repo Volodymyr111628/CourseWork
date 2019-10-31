@@ -10,6 +10,11 @@ namespace CoursesTask6.Common
 
         public Rectangle() { }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Rectangle"/> class.
+        /// </summary>
+        /// <param name="bottomLeftPoint">Bottom left point</param>
+        /// <param name="topRightPoint">Top right point</param>
         public Rectangle(Point bottomLeftPoint, Point topRightPoint)
         {
             BottomLeftPoint = bottomLeftPoint;
@@ -19,17 +24,7 @@ namespace CoursesTask6.Common
         public Point BottomLeftPoint { get; set; }
 
         public Point TopRightPoint { get; set; }
-
-        public static bool operator ==(Rectangle a, Rectangle b)
-        {
-            return a.BottomLeftPoint == b.BottomLeftPoint && a.TopRightPoint == b.TopRightPoint;
-        }
-
-        public static bool operator !=(Rectangle a, Rectangle b)
-        {
-            return a.BottomLeftPoint != b.BottomLeftPoint || a.TopRightPoint != b.TopRightPoint;
-        }
-
+        
         public void Move(double x, double y)
         {
             BottomLeftPoint = new Point(BottomLeftPoint.X + x, BottomLeftPoint.Y + y);
@@ -46,10 +41,12 @@ namespace CoursesTask6.Common
 
         public Rectangle GetShapeContainsTwo(Rectangle firstRectangle, Rectangle secondReactangle)
         {
-            BottomLeftPoint = new Point(Math.Min(firstRectangle.BottomLeftPoint.X, secondReactangle.BottomLeftPoint.X),
+            BottomLeftPoint = new Point(
+                Math.Min(firstRectangle.BottomLeftPoint.X, secondReactangle.BottomLeftPoint.X),
                 Math.Min(firstRectangle.BottomLeftPoint.Y, secondReactangle.BottomLeftPoint.Y));
 
-            TopRightPoint = new Point(Math.Max(firstRectangle.TopRightPoint.X, secondReactangle.TopRightPoint.X),
+            TopRightPoint = new Point(
+                Math.Max(firstRectangle.TopRightPoint.X, secondReactangle.TopRightPoint.X),
                 Math.Max(firstRectangle.TopRightPoint.Y, secondReactangle.TopRightPoint.Y));
 
             return this;
@@ -57,10 +54,12 @@ namespace CoursesTask6.Common
 
         public Rectangle GetShapesIntersection(Rectangle firstRectangle, Rectangle secondReactangle)
         {
-            BottomLeftPoint = new Point(Math.Max(firstRectangle.BottomLeftPoint.X, secondReactangle.BottomLeftPoint.X),
+            BottomLeftPoint = new Point(
+                Math.Max(firstRectangle.BottomLeftPoint.X, secondReactangle.BottomLeftPoint.X),
                 Math.Max(firstRectangle.BottomLeftPoint.Y, secondReactangle.BottomLeftPoint.Y));
 
-            TopRightPoint = new Point(Math.Min(firstRectangle.TopRightPoint.X, secondReactangle.TopRightPoint.X),
+            TopRightPoint = new Point(
+                Math.Min(firstRectangle.TopRightPoint.X, secondReactangle.TopRightPoint.X),
                 Math.Min(firstRectangle.TopRightPoint.Y, secondReactangle.TopRightPoint.Y));
 
             if (BottomLeftPoint.X - TopRightPoint.X >= 0 || BottomLeftPoint.Y - TopRightPoint.Y >= 0)
@@ -78,6 +77,11 @@ namespace CoursesTask6.Common
         {
             _printer.Print(string.Format($"Bottom left point coordinates: ({BottomLeftPoint.X},{BottomLeftPoint.Y}) "
                 + $"Top right point coordinates: ({TopRightPoint.X},{TopRightPoint.Y}) \n"));
+        }
+
+        public Rectangle GetShape()
+        {
+            return this;
         }
     }
 }

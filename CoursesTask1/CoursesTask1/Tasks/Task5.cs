@@ -17,7 +17,9 @@ namespace CoursesTask1.Tasks
         public void Run()
         {
             _printer.Print("\nTask5\n");
+
             var enumValues = Enum.GetValues(typeof(LongRange));
+
             foreach (var value in enumValues)
             {
                 _printer.Print(string.Format("{0} : {1}\n", value, (long)value));

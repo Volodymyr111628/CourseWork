@@ -14,32 +14,35 @@ namespace CoursesTask3.Tasks
     class Task1 : IRunnable
     {
         private readonly IPrinter _printer;
-        private readonly ILogger _logger;
+        private readonly ILogger<Task1> _logger;
+        private DirectoryVisualizer directoryVisualizer;
 
-        public Task1()
+        public Task1(IPrinter printer,ILogger<Task1> logger,DirectoryVisualizer directoryVisualizer)
         {
-            _printer = new ConsolePrinter();
-            _logger = new ExceptionLogger(new FilePrinter("Exception.txt"),"INFO");
+            _printer = printer;
+            _logger = logger;
+            this.directoryVisualizer = directoryVisualizer;
         }
 
         public void Run()
         {
             _printer.Print("TASK1\n");
 
-            string path = "C:\\Users\\vova1\\Videos\\Desktop\\Course\\CourseWork\\CoursesTask1\\CoursesWork2";
+            string path = @"C:\Users\vova1\Videos\Desktop\Course\CourseWork\CoursesTask1\CoursesWork2";
+
             try
             {
-                DirectoryVisualizer.VisualizeDirectory(path);
+                directoryVisualizer.VisualizeDirectory(path);
             }
             catch(IOException ex)
             {
                 _printer.Print(string.Format(($"{ex.ToString()}\n")));
-                _logger.WriteMessage(ex.ToString());
+                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
             }
             catch (Exception ex)
             {
                 _printer.Print(string.Format(($"{ex.ToString()}\n")));
-                _logger.WriteMessage(ex.Message);
+                _logger.WriteMessage(ex.Message,LevelOfDetalization.Error);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Classes.Common.Runner;
 using CoursesTask2.Common;
 using Classes.Common.Printer;
+using System;
 
 namespace CoursesTask2.Tasks
 {
@@ -16,7 +17,20 @@ namespace CoursesTask2.Tasks
         public void Run()
         {
             _printer.Print(string.Format("\nTask2\n"));
-            Functions.Iteration();
+
+            try
+            {
+                Functions.Iteration();
+            }
+            catch (IndexOutOfRangeException ex)
+            {
+                _printer.Print(string.Format($"Exception occured {ex.Message}\n"));
+            }
+            catch (Exception ex)
+            {
+                _printer.Print(string.Format($"Exception occured {ex.Message}\n"));
+                throw;
+            }
         }
     }
 }

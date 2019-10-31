@@ -1,5 +1,8 @@
-﻿
-namespace CoursesTask1.Common
+﻿namespace CoursesTask1.Common
 {
-    public enum LongRange : long { Max = long.MaxValue, Min = long.MinValue };
+    public enum LongRange : long
+    {
+        Max = long.MaxValue,
+        Min = long.MinValue
+    };
 }

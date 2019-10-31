@@ -17,5 +17,7 @@ namespace CoursesTask6.Common
         void ChangeSize(double coefficient);
 
         void Move(double x, double y);
+
+        T GetShape();
     }
 }

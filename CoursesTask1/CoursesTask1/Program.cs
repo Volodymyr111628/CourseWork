@@ -8,7 +8,7 @@ namespace CoursesTask1
     {
         static void Main(string[] args)
         {
-            List<IRunnable> tasks = new List<IRunnable>
+            var tasks = new List<IRunnable>
             {
                 new Task1(),
                 new Task2(),

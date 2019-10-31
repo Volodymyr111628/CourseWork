@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Classes.Common.Serializer
+namespace Classes.Common.Reader
 {
-    class BinarySerializer
+    public interface IFileReader
     {
+        string Read(string path);
     }
 }

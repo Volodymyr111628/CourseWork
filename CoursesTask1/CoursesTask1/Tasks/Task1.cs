@@ -9,14 +9,15 @@ namespace CoursesTask1.Tasks
     {
         private readonly IPrinter _printer;
 
-        public Task1()
+        public Task1(IPrinter printer=null)
         {
-            _printer = new ConsolePrinter();
+            _printer = printer ?? new ConsolePrinter();
         }
 
         public void Run()
         {
-            List<Person> persons = new List<Person>()
+
+            var persons = new List<Person>()
             {
                 new Person(20,"Volodymyr","Kuhivchak"),
                 new Person(25,"Ivan","Perk"),

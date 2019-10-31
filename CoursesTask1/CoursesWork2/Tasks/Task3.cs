@@ -19,6 +19,7 @@ namespace CoursesTask2.Tasks
             _printer.Print(string.Format("\nTask3\n"));
 
             int a = 10;
+
             int b = 20;
 
             try

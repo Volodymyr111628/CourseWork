@@ -12,15 +12,12 @@ namespace CoursesTask4.Tasks
     public class Task3 : IRunnable
     {
         private readonly IPrinter _printer;
-        private readonly ILogger _logger;
-        private readonly FilePrinter _filePrinter;
+        private readonly ILogger<Task3> _logger;
 
-        public Task3()
+        public Task3(ILogger<Task3> logger, IPrinter printer)
         {
-            _printer = new ConsolePrinter();
-            _logger = new ExceptionLogger(new FilePrinter(ConfigurationManager.AppSettings["FileToWrite"].ToString())
-                , ConfigurationManager.AppSettings["LevelOfDetalization"].ToString());
-            _filePrinter = new FilePrinter();
+            _printer = printer;
+            _logger = logger;
         }
 
         public void Run()
@@ -40,8 +37,8 @@ namespace CoursesTask4.Tasks
             try
             {
                 var jsonCars = JsonConvert.SerializeObject(cars);
-                _filePrinter.Path = "Cars.json";
-                _filePrinter.RePrint(jsonCars);
+                
+                _printer.Print(jsonCars);
 
                 List<Car> carsDeserializedJson = JsonConvert.DeserializeObject<List<Car>>(File.ReadAllText("Cars.json"));
 
@@ -53,7 +50,7 @@ namespace CoursesTask4.Tasks
             catch(IOException ex)
             {
                 _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
-                _logger.WriteMessage(ex.ToString());
+                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
             }
         }
     }

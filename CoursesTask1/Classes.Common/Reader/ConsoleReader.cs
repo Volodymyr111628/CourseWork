@@ -4,7 +4,7 @@ namespace Classes.Common.Reader
 {
     public class ConsoleReader : IReader
     {
-        public string Read()
+        public string ReadLine()
         {
             return Console.ReadLine();
         }

@@ -1,5 +1,4 @@
-﻿
-namespace CoursesTask1.Common
+﻿namespace CoursesTask1.Common
 {
     public interface ICoordinates
     {

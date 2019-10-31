@@ -5,7 +5,7 @@
 
     public class Circle : IShape<Circle>
     {
-        private readonly IPrinter _printer = new ConsolePrinter();
+        private readonly IPrinter _printer=new ConsolePrinter();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle"/> class.
@@ -60,6 +60,11 @@
         {
             CenterPoint.X += x;
             CenterPoint.Y += y;
+        }
+
+        public Circle GetShape()
+        {
+            return new Circle();
         }
     }
 }

@@ -1,36 +1,46 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CoursesTask3.Tasks;
-using Classes.Common.Runner;
-using Classes.Common.Logger;
+﻿using Classes.Common.Logger;
 using Classes.Common.Printer;
+using CoursesTask3.Tasks;
+using Autofac;
+using System.Diagnostics.CodeAnalysis;
+using CoursesTask3.Common;
 
-namespace CoursesTask3
+namespace CoursesTask5
 {
+    [ExcludeFromCodeCoverage]
     class Program
     {
+        private static IContainer CompositionRoot()
+        {
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<Task1>();
+
+            builder.RegisterType<Task2>();
+
+            builder.RegisterType<ConsolePrinter>().As<IPrinter>();
+
+            builder.RegisterType<FilePrinter>().As<ILogPrinter>().WithParameter("path", "Exceptions.txt");
+
+            builder.RegisterType<ExceptionLogger<Task1>>().As<ILogger<Task1>>();
+
+            builder.RegisterType<ExceptionLogger<Task2>>().As<ILogger<Task2>>();
+
+            builder.RegisterType<ExceptionLogger<FileSearcher>>().As<ILogger<FileSearcher>>();
+
+            builder.RegisterType<ExceptionLogger<DirectoryVisualizer>>().As<ILogger<DirectoryVisualizer>>();
+
+            builder.RegisterType<DirectoryVisualizer>().AsSelf();
+
+            builder.RegisterType<FileSearcher>().AsSelf();
+           
+            return builder.Build();
+        }
+
         static void Main(string[] args)
         {
-            ILogger _logger = new ExceptionLogger();
-            List<IRunnable> tasks = new List<IRunnable>()
-            {
-                new Task1(),
-                new Task2()
-            };
-            try
-            {
-                foreach (var task in tasks)
-                {
-                    task.Run();
-                }
-            }
-            catch(Exception ex)
-            {
-
-            }
+            CompositionRoot().Resolve<Task1>().Run();
+            CompositionRoot().Resolve<Task2>().Run();
         }
     }
 }

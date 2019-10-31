@@ -1,7 +1,7 @@
 ﻿namespace Classes.Common.Logger
 {
-    public interface ILogger
+    public interface ILogger<T>
     {
-        void WriteMessage(object value);
+        void WriteMessage(object value, LevelOfDetalization levelOfDetalization);
     }
 }

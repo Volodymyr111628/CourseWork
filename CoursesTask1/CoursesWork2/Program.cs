@@ -11,7 +11,7 @@ namespace CoursesTask2
         private static readonly IPrinter _printer = new ConsolePrinter();
         static void Main(string[] args)
         {
-            List<IRunnable> tasks = new List<IRunnable>()
+            var tasks = new List<IRunnable>()
             {
                 new Task2(),
                 new Task3(),

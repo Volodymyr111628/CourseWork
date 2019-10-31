@@ -3,9 +3,9 @@ namespace CoursesTask1.Common
 {
     public struct Person
     {
-        public int age;
-        public string name;
-        public string surname;
+        private int age;
+        private string name;
+        private string surname;
 
         public Person(int age, string name, string surname)
         {

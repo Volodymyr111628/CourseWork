@@ -1,28 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Classes.Common.Printer;
+﻿using Classes.Common.Printer;
 using Classes.Common.Logger;
 using System.IO;
 
 namespace CoursesTask3.Common
 {
-    public static class FileSearcher
+    public class FileSearcher
     {
-        private static readonly IPrinter _printer;
-        private static readonly ILogger _logger;
+        private readonly IPrinter _printer;
 
-        static FileSearcher()
+        private readonly ILogger<FileSearcher> _logger;
+
+        public FileSearcher(ILogger<FileSearcher> logger, IPrinter printer)
         {
-            _printer = new ConsolePrinter();
-            _logger = new ExceptionLogger(new ConsolePrinter(),"INFO");
+            _printer = printer;
+            _logger = logger;
         }
 
-        public static void FindTxtFileByPartialName(string path, string fileName)
+        public void FindTxtFileByPartialName(string path, string fileName)
         {
-            DirectoryInfo info = new DirectoryInfo(path);
+            var info = new DirectoryInfo(path);
 
             var files = info.GetFiles();
 
@@ -33,11 +29,11 @@ namespace CoursesTask3.Common
                     _printer.Print(string.Format($"{file.FullName} \n"));
                 }
             }
+
             foreach (var item in info.GetDirectories())
             {
                 FindTxtFileByPartialName(item.FullName, fileName);
             }
         }
-
     }
 }

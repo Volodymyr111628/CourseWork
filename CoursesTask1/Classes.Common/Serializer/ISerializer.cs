@@ -1,7 +1,7 @@
 ﻿
 namespace Classes.Common.Serializer
 {
-    public interface ISerializable<T>
+    public interface ISerializer<T>
     {
         void Serialize();
         T Deserialize();

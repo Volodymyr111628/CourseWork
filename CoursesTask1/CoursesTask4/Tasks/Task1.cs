@@ -13,21 +13,18 @@ namespace CoursesTask4.Tasks
     public class Task1 : IRunnable
     {
         private readonly IPrinter _printer;
-        private readonly ILogger _logger;
-        private readonly FilePrinter _filePrinter;
+        private readonly ILogger<Task1> _logger;
 
-        public Task1()
+        public Task1(ILogger<Task1> logger, IPrinter printer)
         {
-            _printer = new ConsolePrinter();
-            _logger = new ExceptionLogger(new FilePrinter(ConfigurationManager.AppSettings["FileToWrite"].ToString()),
-                ConfigurationManager.AppSettings["levelOfDetalization"].ToString());
-            _filePrinter = new FilePrinter();
+            _printer = printer;
+            _logger = logger;
         }
 
         public void Run()
         {
             _printer.Print("-----TASK1-----\n");
-            List<Car> cars = new List<Car>
+            var cars = new List<Car>
             {
                 new Car(10,100550,512,2230),
                 new Car(134,1234400,100,2450),
@@ -47,7 +44,7 @@ namespace CoursesTask4.Tasks
             catch (IOException ex)
             {
                 _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
-                _logger.WriteMessage(ex.ToString());
+                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
             }
             finally
             {
@@ -70,17 +67,17 @@ namespace CoursesTask4.Tasks
             catch (FileNotFoundException ex)
             {
                 _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
-                _logger.WriteMessage(ex.ToString());
+                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
             }
             catch (IOException ex)
             {
                 _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
-                _logger.WriteMessage(ex.ToString());
+                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
             }
             catch (Exception ex)
             {
                 _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
-                _logger.WriteMessage(ex.ToString());
+                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
             }
             finally
             {

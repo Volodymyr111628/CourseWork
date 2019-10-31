@@ -1,96 +1,35 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace Classes.Common.Printer
 {
-    public class FilePrinter : IPrinter
+    public class FilePrinter : IPrinter, ILogPrinter
     {
-        public string Path { get; set; }
-        private readonly IPrinter _printer;
-
-        public FilePrinter()
-        {
-            Path = "";
-            _printer = new ConsolePrinter();
-        }
+        private readonly string Path;
 
         public FilePrinter(string path)
         {
             Path = path;
-            _printer = new ConsolePrinter();
         }
-        
+
         public void Print(string value)
         {
             WriteToFile(value);
         }
 
-        public void Print(int value)
+        public void Print(string value, bool append)
         {
-            WriteToFile(value.ToString());
+            WriteToFile(value, append);
         }
 
-        public void Print(object value)
+        private void WriteToFile(string value, bool append = true)
         {
-            WriteToFile(value.ToString());
-        }
-
-        public void Print(double value)
-        {
-            WriteToFile(value.ToString());
-        }
-
-        public void RePrint(string value)
-        {
-            StreamWriter sw = new StreamWriter(Path, false);
-
-            try
+            using (var sw = new StreamWriter(Path, append))
             {
                 if (!File.Exists(Path))
                 {
                     File.Create(Path);
                 }
-                sw.WriteLine(string.Format("\n{0}\n", value));
-            }
-            catch (IOException ex)
-            {
-                _printer.Print(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                _printer.Print(string.Format("Exception occured:{0}\n", ex.Message));
-                throw;
-            }
-            finally
-            {
-                sw.Close();
-            }
-        }
-
-        private void WriteToFile(string value)
-        {
-            StreamWriter sw = new StreamWriter(Path, true);
-
-            try
-            {
-                if(!File.Exists(Path))
-                {
-                    File.Create(Path);
-                }
                 sw.WriteLine(string.Format("{0} \n", value));
-            }
-            catch (IOException ex)
-            {
-                _printer.Print(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                _printer.Print(string.Format("Exception occured:{0} \n", ex.Message));
-                throw;
-            }
-            finally
-            {
-                sw.Close();
             }
         }
     }

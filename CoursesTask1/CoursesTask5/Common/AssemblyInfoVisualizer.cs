@@ -1,53 +1,49 @@
 ﻿using Classes.Common.Printer;
 using System.Reflection;
+using Classes.Common.Logger;
 
 namespace CoursesTask5.Common
 {
     public class AssemblyInfoVisualizer
     {
-        public string AssemblyName { get; set; }
+        
+        private readonly IPrinter _printer;
 
-        private readonly IPrinter _consolePrinter;
+        private readonly ILogger<AssemblyInfoVisualizer> _logger;
 
-
-        public AssemblyInfoVisualizer()
+        public AssemblyInfoVisualizer(string assemblyName,IPrinter printer,ILogger<AssemblyInfoVisualizer> logger)
         {
-            _consolePrinter = new ConsolePrinter();
-
-            AssemblyName = "";
-        }
-
-        public AssemblyInfoVisualizer(string assemblyName)
-        {
-            _consolePrinter = new ConsolePrinter();
-
+            _printer = printer;
+            _logger = logger;
             AssemblyName = assemblyName;
         }
+
+        public string AssemblyName { get; set; }
 
         public void VisualizeAssemblyInfo()
         {
             var assembly = Assembly.Load(AssemblyName);
 
-            _consolePrinter.Print(string.Format($"{assembly.FullName} \n"));
+            _printer.Print(string.Format($"{assembly.FullName} \n"));
 
             foreach (var item in assembly.GetModules(true))
             {
-                _consolePrinter.Print(string.Format($"{item.Name} \n"));
+                _printer.Print(string.Format($"{item.Name} \n"));
             }
 
             foreach (var type in assembly.GetExportedTypes())
             {
-                _consolePrinter.Print(string.Format($"{type.Name} \n"));
+                _printer.Print(string.Format($"{type.Name} \n"));
 
                 foreach (var member in type.GetMembers())
                 {
-                    _consolePrinter.Print(string.Format($"\t {member} \n"));
+                    _printer.Print(string.Format($"\t {member} \n"));
 
                     if (member.MemberType == MemberTypes.Method)
                     {
-                        foreach (ParameterInfo parInfo in ((MethodInfo)member).GetParameters())
+                        foreach (var parInfo in ((MethodInfo)member).GetParameters())
                         {
-                            _consolePrinter.Print(string.Format($"\t\t {parInfo} \n"));
+                            _printer.Print(string.Format($"\t\t {parInfo} \n"));
                         }
                     }
                 }

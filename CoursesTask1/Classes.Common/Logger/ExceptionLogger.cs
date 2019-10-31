@@ -4,28 +4,22 @@ using System.IO;
 
 namespace Classes.Common.Logger
 {
-    public class ExceptionLogger : ILogger
+    public class ExceptionLogger<T> : ILogger<T>
     {
-        public IPrinter Src { get; set; }
-        public string LevelOfDetalization { get; set; }
+        private readonly string className;
+        private ILogPrinter Src;
 
-        public ExceptionLogger()
+        public ExceptionLogger(IPrinter src, ILogPrinter logPrinter)
         {
-            LevelOfDetalization = ""; 
+            Src = logPrinter;
+            className = typeof(T).FullName;
         }
 
-        public ExceptionLogger(IPrinter src, string levelOfDetalization)
-        {
-            Src = src;
-            LevelOfDetalization = levelOfDetalization;
-        }
-        
-
-        public void WriteMessage(object value)
+        public void WriteMessage(object message, LevelOfDetalization levelOfDetalization = LevelOfDetalization.Error)
         {
             try
             {
-                Src.Print(string.Format("{0}\n", value.ToString()));
+                Src.Print(string.Format("{0} | {1} | {2} - {3} \n", levelOfDetalization, DateTime.Now, message, className));
             }
             catch (IOException)
             {

@@ -16,7 +16,7 @@ namespace CoursesTask1.Tasks
 
         public void Run()
         {
-            List<Rectangle> rectangles = new List<Rectangle>()
+            var rectangles = new List<Rectangle>()
             {
                 new Rectangle(0,0,20,15),
                 new Rectangle(0,0,10,25),

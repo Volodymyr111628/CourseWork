@@ -14,12 +14,16 @@ namespace CoursesTask3.Tasks
     class Task2 : IRunnable
     {
         private readonly IPrinter _printer;
-        private readonly ILogger _logger;
 
-        public Task2()
+        private readonly ILogger<Task2> _logger;
+
+        private FileSearcher fileSearcher;
+
+        public Task2(IPrinter printer,ILogger<Task2> logger, FileSearcher fileSearcher)
         {
-            _printer = new ConsolePrinter();
-            _logger = new ExceptionLogger(new FilePrinter("Exceptions.txt"), "INFO");
+            _printer = printer;
+            _logger = logger;
+            this.fileSearcher = fileSearcher;
         }
 
         public void Run()
@@ -30,16 +34,16 @@ namespace CoursesTask3.Tasks
 
             try
             {
-                FileSearcher.FindTxtFileByPartialName(path, fileName);
+                fileSearcher.FindTxtFileByPartialName(path, fileName);
             }
             catch (IOException ex)
             {
-                _logger.WriteMessage(ex.Message);
+                _logger.WriteMessage(ex.Message,LevelOfDetalization.Error);
                 _printer.Print(string.Format($"{ex.Message}\n"));
             }
             catch (Exception ex)
             {
-                _logger.WriteMessage(ex.Message);
+                _logger.WriteMessage(ex.Message,LevelOfDetalization.Error);
                 _printer.Print(string.Format($"{ex.Message}\n"));
             }
         }

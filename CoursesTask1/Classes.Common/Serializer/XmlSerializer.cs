@@ -3,7 +3,7 @@ using System.IO;
 
 namespace Classes.Common.Serializer
 {
-    public class XmlSerializer<T> : ISerializable<T>
+    public class XmlSerializer<T> : ISerializer<T>
     {
 
         public string Path { get; set; }
