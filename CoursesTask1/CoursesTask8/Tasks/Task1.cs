@@ -4,6 +4,7 @@ using System.Configuration;
 using Classes.Common.Printer;
 using Classes.Common.Logger;
 using CoursesTask8.Common;
+using Classes.Common.Reader;
 
 namespace CoursesTask8.Tasks
 {
@@ -11,46 +12,43 @@ namespace CoursesTask8.Tasks
     {
         private readonly IPrinter _printer;
         private readonly ILogger<Task1> _logger;
+        private readonly ICalculator _calculator;
+        private readonly IReader _reader;
 
-        public Task1(IPrinter printer,ILogger<Task1> logger)
+        public Task1(IPrinter printer, ILogger<Task1> logger, ICalculator calculator, IReader reader)
         {
             _logger = logger;
             _printer = printer;
+            _calculator = calculator;
+            _reader = reader;
         }
 
         public void Run()
         {
-            ICalc calcultor = new FileCalc();
             try
             {
-                calcultor.Calculation(10, 20, '+');
-            }
-            catch(DivideByZeroException ex)
-            {
-                _printer.Print(string.Format($"Exception occured: {ex.Message}"));
-                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
-            }
-            catch (Exception ex)
-            {
-                _printer.Print(string.Format($"Exception occured: {ex.Message}"));
-                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
-            }
+                string expression = string.Empty;
 
-            calcultor = new ConsoleCalc();
+                if (_printer is ConsolePrinter)
+                {
+                    _printer.Print("Input expression to calculate: \n");
+                }
 
-            try
-            {
-                calcultor.Calculation(20, 8, '/');
+                expression = _reader.Read();
+
+                var result = _calculator.Calculate(expression);
+
+                _printer.Print($"Result = {result} \n");
             }
             catch (DivideByZeroException ex)
             {
                 _printer.Print(string.Format($"Exception occured: {ex.Message}"));
-                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
+                _logger.WriteMessage(ex.ToString(), LevelOfDetalization.Error);
             }
             catch (Exception ex)
             {
                 _printer.Print(string.Format($"Exception occured: {ex.Message}"));
-                _logger.WriteMessage(ex.ToString(),LevelOfDetalization.Error);
+                _logger.WriteMessage(ex.ToString(), LevelOfDetalization.Error);
             }
         }
     }

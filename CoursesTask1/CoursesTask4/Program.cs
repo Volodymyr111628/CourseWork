@@ -22,7 +22,7 @@ namespace CoursesTask5
 
             builder.RegisterType<FilePrinter>().As<IPrinter>().WithParameter("path", "Car.txt");
 
-            builder.RegisterType<FilePrinter>().As<ILogPrinter>().WithParameter("path", "Exception");
+            builder.RegisterType<FilePrinter>().As<ILogPrinter>().WithParameter("path", "Exceptions.txt");
 
             builder.RegisterType<ExceptionLogger<Task1>>().As<ILogger<Task1>>();
 

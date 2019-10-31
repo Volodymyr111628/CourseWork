@@ -50,6 +50,7 @@
     <Compile Include="Printer\ILogPrinter.cs" />
     <Compile Include="Printer\IPrinter.cs" />
     <Compile Include="Reader\ConsoleReader.cs" />
+    <Compile Include="Reader\FileReader.cs" />
     <Compile Include="Reader\IFileReader.cs" />
     <Compile Include="Reader\IReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

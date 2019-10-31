@@ -16,11 +16,6 @@ namespace Classes.Common.Printer
             WriteToFile(value);
         }
 
-        public void Print(string value, bool append)
-        {
-            WriteToFile(value, append);
-        }
-
         private void WriteToFile(string value, bool append = true)
         {
             using (var sw = new StreamWriter(Path, append))

@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Classes.Common.Reader
+namespace CoursesTask8.Common
 {
-    public interface IFileReader : IReader
+    public interface ICalculator
     {
-        new string Read();
+        string Calculate(string expression);
     }
 }

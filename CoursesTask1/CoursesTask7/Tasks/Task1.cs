@@ -3,7 +3,12 @@ using Classes.Common.Logger;
 using Classes.Common.Printer;
 using Classes.Common.Runner;
 using System.Diagnostics;
+using System.Collections.Generic;
 using Classes.Common.Reader;
+using CoursesTask7.Common;
+using System.Text;
+using System.Configuration;
+using System.IO;
 
 namespace CoursesTask7.Tasks
 {
@@ -25,20 +30,41 @@ namespace CoursesTask7.Tasks
             Stopwatch swTotal = new Stopwatch();
             swTotal.Start();
 
-            string path = "Sample.xlsx";
-            
-            string data = excelReader.Read(path);
+            try
+            {
+                string path = ConfigurationManager.AppSettings["ExcelFilePath"].ToString();
 
-            TimeSpan ts = swTotal.Elapsed;
+                string data = excelReader.Read();
 
-            string elapsedTime = String.Format(
-                "{0:00}h: {1:00}m: {2:00}s: {3:00}ms",
-                ts.Hours, ts.Minutes, ts.Seconds,
-                ts.Milliseconds / 10);
+                TimeSpan ts = swTotal.Elapsed;
 
-            _printer.Print(string.Format($"Time used: {elapsedTime} \n"));
+                string elapsedTime = string.Format(
+                    "{0:00}h: {1:00}m: {2:00}s: {3:00}ms",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
 
-            _printer.Print(data);
+                _printer.Print(string.Format($"Time used for reading: {elapsedTime} \n"));
+
+
+                var uniqueValues = Functions.GetUniqueValues(data);
+
+                _printer.Print(string.Format("UNIQUE VALUES:\n"));
+
+                foreach (var item in uniqueValues)
+                {
+                    _printer.Print(string.Format($"{item}, "));
+                }
+            }
+            catch (IOException ex)
+            {
+                _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
+                _logger.WriteMessage(ex.ToString(), LevelOfDetalization.Error);
+            }
+            catch (Exception ex)
+            {
+                _printer.Print(string.Format($"Exception occured {ex.Message} \n"));
+                _logger.WriteMessage(ex.ToString(), LevelOfDetalization.Error);
+            }
         }
     }
 }

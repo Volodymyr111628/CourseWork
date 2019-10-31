@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Classes.Common.Reader
+namespace CoursesTask9
 {
-    public interface IFileReader : IReader
+    class Program
     {
-        new string Read();
+        static void Main(string[] args)
+        {
+        }
     }
 }
