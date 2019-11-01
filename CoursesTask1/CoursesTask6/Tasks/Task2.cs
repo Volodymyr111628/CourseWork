@@ -1,5 +1,4 @@
-﻿using System.Configuration;
-using Classes.Common.Logger;
+﻿using Classes.Common.Logger;
 using Classes.Common.Printer;
 using Classes.Common.Runner;
 using CoursesTask6.Common;

@@ -15,13 +15,15 @@ namespace CoursesTask2.Tasks
         }
         public void Run()
         {
-            // StackOverflowException object can't be caught by a try-catch block
-            // and the corresponding process is terminated by default
-            // Starting with 2.0 a StackOverflow Exception can only be caught in the following circumstances.
-            // 1) The CLR is being run in a hosted environment* where the host specifically allows for StackOverflow exceptions to be handled
-            // 2) The stackoverflow exception is thrown by user code and not due to an actual stack overflow situation
-
             _printer.Print(string.Format("\nTask1\n"));
+
+            _printer.Print("StackOverflowException object can't be caught by a try-catch block\n " +
+                "and the corresponding process is terminated by default\n" +
+                "Starting with 2.0 a StackOverflow Exception can only be caught in the following circumstances.\n" +
+                "1) The CLR is being run in a hosted environment where the host specifically\n" +
+                " allows for StackOverflow exceptions to be handled\n" +
+                "2) The stackoverflow exception is thrown by user code and not\n" +
+                "due to an actual stack overflow situation\n");
 
             try
             {

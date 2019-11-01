@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Classes.Common.Logger;
 using Classes.Common.Printer;
-using Classes.Common.Reader;
 using System.Data;
 
 namespace CoursesTask8.Common

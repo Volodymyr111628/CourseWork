@@ -5,7 +5,6 @@ using Classes.Common.Logger;
 using CoursesTask4.Common;
 using System.IO;
 using Newtonsoft.Json;
-using System.Configuration;
 
 namespace CoursesTask4.Tasks
 {

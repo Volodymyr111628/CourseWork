@@ -6,7 +6,7 @@ using Classes.Common.Printer;
 using Classes.Common.Reader;
 using System.Configuration;
 
-namespace CoursesTask5
+namespace CoursesTask7
 {
     class Program
     {

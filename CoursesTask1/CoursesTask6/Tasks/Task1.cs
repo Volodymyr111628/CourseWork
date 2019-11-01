@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using Classes.Common.Logger;
 using Classes.Common.Printer;
 using Classes.Common.Runner;

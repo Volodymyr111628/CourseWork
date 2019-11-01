@@ -1,13 +1,9 @@
-﻿using System.Collections.Generic;
-using Classes.Common.Runner;
-using CoursesTask6.Tasks;
+﻿using CoursesTask6.Tasks;
 using Autofac;
-using CoursesTask6.Common;
-using CoursesTask6.Tasks;
 using Classes.Common.Logger;
 using Classes.Common.Printer;
 
-namespace CoursesTask5
+namespace CoursesTask6
 {
     class Program
     {
@@ -15,7 +11,7 @@ namespace CoursesTask5
         {
             var builder = new ContainerBuilder();
 
-            builder.RegisterType<FilePrinter>().As<ILogPrinter>().WithParameter("path", "Exceptons.txt");
+            builder.RegisterType<FilePrinter>().As<ILogPrinter>().WithParameter("path", "Exceptions.txt");
 
             builder.RegisterType<Task1>();
 

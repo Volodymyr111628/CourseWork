@@ -6,7 +6,6 @@ using Classes.Common.Logger;
 using CoursesTask4.Common;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Configuration;
 
 namespace CoursesTask4.Tasks
 {

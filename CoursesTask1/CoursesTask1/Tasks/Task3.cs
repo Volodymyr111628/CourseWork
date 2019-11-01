@@ -24,7 +24,7 @@ namespace CoursesTask1.Tasks
 
             try
             {
-                int monthNumber = Int32.Parse(_reader.ReadLine());
+                int monthNumber = Int32.Parse(_reader.Read());
 
                 if (monthNumber < 0 || monthNumber >= 12)
                 {
