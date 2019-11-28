@@ -10,18 +10,16 @@ namespace DIContainer
         {
             var services = new DiServiceCollection();
 
-            //services.RegisterSingleton<RandomGuidGenerator>();
-            //services.RegisterSingleton<RandomGuidGenerator>();
-
-            services.RegisterTransient<ISomeService, SomeService>();
-
+            services.RegisterSingleton<ISomeService, SomeService>();
+            services.RegisterTransient<IRandomGuidProvider, RandomGuidProvider>();
+             
             var container = services.GenerateContainer();
 
-            var serviceFirst = container.GetService<RandomGuidGenerator>();
-            var serviceSecond = container.GetService<RandomGuidGenerator>();
+            var serviceFirst = container.GetService<ISomeService>();
+            var serviceSecond = container.GetService<ISomeService>();
 
-            Console.WriteLine(serviceFirst.RandomGuid);
-            Console.WriteLine(serviceSecond.RandomGuid);
+            serviceFirst.Print();
+            serviceSecond.Print();
         }
     }
 }

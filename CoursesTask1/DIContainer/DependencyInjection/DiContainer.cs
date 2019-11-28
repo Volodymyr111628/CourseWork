@@ -14,29 +14,46 @@ namespace DIContainer.DependencyInjection
             _serviceDescriptors = serviceDescriptors;
         }
 
-        internal T GetService<T>()
+        public object GetService(Type serviceType)
         {
             var descriptor = _serviceDescriptors
-                .SingleOrDefault(x => x.ServiceType == typeof(T));
+                .SingleOrDefault(x => x.ServiceType == serviceType);
 
-            if(descriptor==null)
+            if (descriptor == null)
             {
-                throw new Exception($"Service of type {typeof(T).Name} isn't registered \n");
+                throw new Exception($"Service of type {serviceType.Name} isn't registered \n");
             }
 
-            if(descriptor.Implementation!=null)
+            if (descriptor.Implementation != null)
             {
-                return (T)descriptor.Implementation;
+                return descriptor.Implementation;
             }
 
-            var implementation = (T)Activator.CreateInstance(descriptor.ServiceType);
+            var actualType = descriptor.ImplementationType ?? descriptor.ServiceType;
 
-            if(descriptor.Lifetime==ServiceLifetime.Singleton)
+            if (actualType.IsAbstract || actualType.IsInterface)
+            {
+                throw new Exception("Cannot instantiate abstract classes or interfaces");
+            }
+
+            var constructorInfo = actualType.GetConstructors().First();
+
+            var parameters = constructorInfo.GetParameters()
+                .Select(x => GetService(x.ParameterType)).ToArray();
+
+            var implementation = Activator.CreateInstance(actualType,parameters);
+
+            if (descriptor.Lifetime == ServiceLifetime.Singleton)
             {
                 descriptor.Implementation = implementation;
             }
 
             return implementation;
+        }
+
+        public T GetService<T>()
+        {
+            return (T)GetService(typeof(T));
         }
     }
 }

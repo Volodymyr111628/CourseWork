@@ -6,9 +6,6 @@ namespace DIContainer.DependencyInjection
 {
     public class ServiceDescriptor
     {
-        private Type type1;
-        private Type type2;
-        private ServiceLifetime transient;
 
         public Type ServiceType { get; }
 
@@ -35,7 +32,7 @@ namespace DIContainer.DependencyInjection
         {
             ServiceType = serviceType;
             ImplementationType = implementationType;
-            transient = lifetime;
+            Lifetime = lifetime;
         }
     }
 }

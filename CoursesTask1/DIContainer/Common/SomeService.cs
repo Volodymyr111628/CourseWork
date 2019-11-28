@@ -6,10 +6,17 @@ namespace DIContainer.Common
 {
     public class SomeService : ISomeService
     {
-        private readonly Guid RandomGuid = Guid.NewGuid(); 
+        private readonly IRandomGuidProvider _randomGuidProvider;
+        
+
+        public SomeService(IRandomGuidProvider randomGuidprovider)
+        {
+            _randomGuidProvider = randomGuidprovider;
+        }
+
         public void Print()
         {
-            Console.WriteLine(RandomGuid);
+            Console.WriteLine(_randomGuidProvider.RandomGuid);
         }
     }
 }

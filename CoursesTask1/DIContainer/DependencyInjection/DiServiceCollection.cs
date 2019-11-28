@@ -14,9 +14,14 @@ namespace DIContainer.DependencyInjection
             _serviceDescriptors.Add(new ServiceDescriptor(typeof(T), ServiceLifetime.Singleton));
         }
 
-        internal void RegisterTransient<TService, TImplementation>()
+        public void RegisterTransient<TService, TImplementation>() where TImplementation : TService
         {
             _serviceDescriptors.Add(new ServiceDescriptor(typeof(TService), typeof(TImplementation), ServiceLifetime.Transient));
+        }
+
+        public void RegisterSingleton<TService, TImplementation>() where TImplementation : TService
+        {
+            _serviceDescriptors.Add(new ServiceDescriptor(typeof(TService), typeof(TImplementation), ServiceLifetime.Singleton));
         }
 
         public void RegisterSingleton<TService>(TService implementation)
