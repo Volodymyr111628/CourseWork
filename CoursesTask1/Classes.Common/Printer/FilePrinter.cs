@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace Classes.Common.Printer
 {
     public class FilePrinter : IPrinter, ILogPrinter
     {
         private readonly string Path;
+
 
         public FilePrinter(string path)
         {

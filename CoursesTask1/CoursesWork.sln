@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoursesTask11", "CoursesTas
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DIContainer", "DIContainer\DIContainer.csproj", "{44C7B1BC-FC6B-4EBC-8814-F6CA0A06B72E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NUnitTestHomework", "NUnitTestHomework\NUnitTestHomework.csproj", "{EC5D7BE6-1232-4BDD-AB66-85B7A16953CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NUnitTestHomework", "NUnitTestHomework\NUnitTestHomework.csproj", "{EC5D7BE6-1232-4BDD-AB66-85B7A16953CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReflectionHomework", "ReflectionHomework\ReflectionHomework.csproj", "{C346F809-4303-4B9C-A80C-7432B4839AD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{EC5D7BE6-1232-4BDD-AB66-85B7A16953CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC5D7BE6-1232-4BDD-AB66-85B7A16953CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC5D7BE6-1232-4BDD-AB66-85B7A16953CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C346F809-4303-4B9C-A80C-7432B4839AD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C346F809-4303-4B9C-A80C-7432B4839AD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C346F809-4303-4B9C-A80C-7432B4839AD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C346F809-4303-4B9C-A80C-7432B4839AD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Calculator\AddCalculator.cs" />
+    <Compile Include="Calculator\ICalculator.cs" />
+    <Compile Include="Calculator\MultiplyClaculator.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="Logger\ExceptionLogger.cs" />
     <Compile Include="Logger\ILogger.cs" />
