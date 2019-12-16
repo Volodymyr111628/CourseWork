@@ -1,6 +1,6 @@
-﻿using System;
-using DIContainer.Common;
+﻿using DIContainer.Common;
 using DIContainer.DependencyInjection;
+using Classes.Common.Printer;
 
 namespace DIContainer
 {
@@ -12,6 +12,7 @@ namespace DIContainer
 
             services.RegisterSingleton<ISomeService, SomeService>();
             services.RegisterTransient<IRandomGuidProvider, RandomGuidProvider>();
+            services.RegisterSingleton<IPrinter, ConsolePrinter>();
              
             var container = services.GenerateContainer();
 
